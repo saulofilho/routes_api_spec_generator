@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module RoutesApiSpecGenerator
-  Endpoint = Data.define(
+  Endpoint = Struct.new(
     :verb,
     :path,
     :controller,
@@ -17,7 +17,8 @@ module RoutesApiSpecGenerator
     :extra_params,
     :timezone,
     :channel,
-    :resource_name
+    :resource_name,
+    keyword_init: true
   ) do
     def route_key
       "#{controller}##{action}"
