@@ -1,0 +1,51 @@
+# frozen_string_literal: true
+require 'swagger_helper'
+
+RSpec.describe '<%= endpoint.describe_name %>', type: :request do
+  let(:'<%= endpoint.tenant_header %>') { 'test-tenant' }
+<% if endpoint.timezone -%>
+  let(:Timezone) { 'UTC' }
+<% end -%>
+  let(:start_date) { '2026-01-01' }
+  let(:end_date) { '2026-01-31' }
+
+  path '<%= endpoint.path %>' do
+    get('<%= endpoint.summary %>') do
+      tags '<%= endpoint.tag %>'
+      produces 'application/json'
+
+      parameter name: '<%= endpoint.tenant_header %>', in: :header, schema: { type: :string }, required: true
+<% if endpoint.timezone -%>
+      parameter name: 'Timezone', in: :header, schema: { type: :string }, required: false
+<% end -%>
+      parameter name: :start_date, in: :query, schema: { type: :string, format: :date }, required: true
+      parameter name: :end_date, in: :query, schema: { type: :string, format: :date }, required: true
+
+      response(200, 'successful') do
+        schema type: :object
+
+        before do
+          allow_any_instance_of(Channels::EmailService).to receive(:fetch_stats)
+            .and_return({ channel: 'email', sent: 100, delivered: 90, clicked: 10 })
+          allow_any_instance_of(Channels::WhatsappService).to receive(:fetch_stats)
+            .and_return({ channel: 'whatsapp', sent: 50, delivered: 45, clicked: nil })
+          allow_any_instance_of(Channels::SmsService).to receive(:fetch_stats)
+            .and_return({ channel: 'sms', sent: 30, delivered: 25, clicked: 5 })
+        end
+
+        run_test!
+      end
+
+      response(400, 'bad request - missing dates') do
+        let(:start_date) { nil }
+        let(:end_date) { nil }
+        run_test!
+      end
+
+      response(400, 'bad request - missing tenant') do
+        let(:'<%= endpoint.tenant_header %>') { nil }
+        run_test!
+      end
+    end
+  end
+end

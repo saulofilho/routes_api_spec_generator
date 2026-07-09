@@ -1,0 +1,51 @@
+# frozen_string_literal: true
+require 'swagger_helper'
+
+RSpec.describe '<%= endpoint.describe_name %>', type: :request do
+  let(:'<%= endpoint.tenant_header %>') { '176980161229322768' }
+  let(:start_date) { '2026-03-01' }
+  let(:end_date) { '2026-03-31' }
+
+  path '<%= endpoint.path %>' do
+    get('<%= endpoint.summary %>') do
+      tags '<%= endpoint.tag %>'
+      produces 'application/json'
+
+      parameter name: '<%= endpoint.tenant_header %>', in: :header, schema: { type: :string }, required: true
+      parameter name: :start_date, in: :query, schema: { type: :string, format: :date }, required: true
+      parameter name: :end_date, in: :query, schema: { type: :string, format: :date }, required: true
+
+      response(200, 'successful') do
+        schema type: :object, required: ['data']
+
+        let(:service) { instance_double(<%= endpoint.service_class %>) }
+
+        before do
+          allow(<%= endpoint.service_class %>).to receive(:new)
+            .with('176980161229322768', period: { start_date: start_date, end_date: end_date })
+            .and_return(service)
+          allow(service).to receive(:call).and_return(
+            data: {
+              period: { start_date: start_date, end_date: end_date },
+              result: [
+                { channel: 'email', total_sent: 100, total_delivered: 90 }
+              ]
+            }
+          )
+        end
+
+        run_test!
+      end
+
+      response(400, 'bad request - invalid dates') do
+        let(:start_date) { 'data-invalida' }
+        run_test!
+      end
+
+      response(400, 'bad request - missing tenant') do
+        let(:'<%= endpoint.tenant_header %>') { nil }
+        run_test!
+      end
+    end
+  end
+end
