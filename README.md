@@ -2,6 +2,8 @@
 
 [![Gem Version](https://badge.fury.io/rb/routes_api_spec_generator.svg)](https://badge.fury.io/rb/routes_api_spec_generator)
 
+**Site:** [saulofilho.github.io/routes-api-spec-generator](https://saulofilho.github.io/routes-api-spec-generator/)
+
 Gera **request specs RSpec com rswag** a partir de **rotas Rails** e inspeção de controllers.
 
 Ferramenta open source para times que usam o fluxo **spec → swagger** (`rake rswag:specs:swaggerize`) e querem reduzir o boilerplate ao cobrir novos endpoints.
