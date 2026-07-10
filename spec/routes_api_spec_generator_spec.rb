@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'fileutils'
 require 'tmpdir'
 require 'yaml'
 
@@ -14,8 +15,10 @@ RSpec.describe RoutesApiSpecGenerator::ConfigLoader do
 
   it 'loads yaml from rails root' do
     Dir.mktmpdir do |dir|
+      config_dir = File.join(dir, 'config')
+      FileUtils.mkdir_p(config_dir)
       File.write(
-        File.join(dir, 'config/routes_api_spec_generator.yml'),
+        File.join(config_dir, 'routes_api_spec_generator.yml'),
         { 'endpoints' => { 'api/v1/foo#index' => { 'tag' => 'Foo' } } }.to_yaml
       )
 

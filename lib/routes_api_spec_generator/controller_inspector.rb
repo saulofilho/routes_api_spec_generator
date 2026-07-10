@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'pathname'
+
 module RoutesApiSpecGenerator
   class ControllerInspector
     SERVICE_PATTERNS = {
@@ -9,7 +11,7 @@ module RoutesApiSpecGenerator
     }.freeze
 
     def initialize(rails_root:)
-      @rails_root = rails_root
+      @rails_root = Pathname.new(rails_root)
     end
 
     def inspect(controller_path, action)
