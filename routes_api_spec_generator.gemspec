@@ -8,11 +8,11 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Saulo Filho']
   spec.email         = ['saulofilho@users.noreply.github.com']
 
-  spec.summary       = 'Gera request specs rswag a partir de rotas Rails'
+  spec.summary       = 'Generate rswag request specs from Rails routes'
   spec.description   = <<~DESC
-    Ruby gem que lê rotas e controllers de uma API Rails e materializa
-    request specs RSpec com rswag — alinhado ao fluxo spec → swagger
-    (rswag:specs:swaggerize).
+    Ruby gem that reads Rails routes and controllers and materializes
+    RSpec request specs with rswag — aligned with the spec → swagger
+    flow (rswag:specs:swaggerize).
   DESC
   spec.homepage      = 'https://github.com/saulofilho/routes-api-spec-generator'
   spec.license       = 'MIT'

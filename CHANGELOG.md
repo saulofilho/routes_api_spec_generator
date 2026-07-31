@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-07-31
+
+### Changed
+
+- Gemspec summary and description translated to English (RubyGems listing)
+
 ## [0.1.0] - 2026-07-09
 
 ### Added
