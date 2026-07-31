@@ -99,7 +99,7 @@ puts "Gerados: #{result[:written]}, ignorados: #{result[:skipped]}"
 bundle install
 bundle exec rspec
 gem build routes_api_spec_generator.gemspec
-gem push routes_api_spec_generator-0.1.0.gem
+gem push routes_api_spec_generator-0.1.1.gem
 ```
 
 > Requer conta no [RubyGems.org](https://rubygems.org) e MFA habilitado.
