@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Gere request specs RSpec com rswag a partir de rotas Rails. Fluxo spec → swagger sem dependência circular.">
+  <meta name="description" content="Generate RSpec request specs with rswag from Rails routes. Spec → swagger flow without circular dependency.">
   <title>Routes API Spec Generator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,14 +26,14 @@
         </span>
         <span class="logo__text">routes_api_spec_generator</span>
       </a>
-      <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false">
+      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav__links">
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#fluxo">Fluxo</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#flow">Flow</a></li>
         <li><a href="#features">Features</a></li>
-        <li><a href="#instalar" class="nav__cta">Instalar</a></li>
+        <li><a href="#install" class="nav__cta">Install</a></li>
       </ul>
     </nav>
   </header>
@@ -42,24 +42,24 @@
     <section class="hero container">
       <div class="hero__content reveal">
         <p class="eyebrow">Rails · RSpec · rswag</p>
-        <h1>Request specs<br><span class="gradient-text">a partir das rotas</span></h1>
+        <h1>Request specs<br><span class="gradient-text">from your routes</span></h1>
         <p class="hero__lead">
-          Ruby gem que lê <code>routes.rb</code> e controllers e materializa
-          <code>spec/requests/**/_spec.rb</code> — alinhada ao fluxo
-          <strong>spec → swagger</strong>, sem depender do OpenAPI como entrada.
+          A Ruby gem that reads <code>routes.rb</code> and controllers and materializes
+          <code>spec/requests/**/_spec.rb</code> — aligned with the
+          <strong>spec → swagger</strong> flow, without using OpenAPI as input.
         </p>
         <div class="hero__actions">
-          <a href="#instalar" class="btn btn--primary">Instalar a gem</a>
+          <a href="#install" class="btn btn--primary">Install the gem</a>
           <a href="https://github.com/saulofilho/routes-api-spec-generator" class="btn btn--ghost" target="_blank" rel="noopener">GitHub</a>
         </div>
         <div class="hero__stats">
           <div class="stat">
             <span class="stat__value">0.1.1</span>
-            <span class="stat__label">versão</span>
+            <span class="stat__label">version</span>
           </div>
           <div class="stat">
             <span class="stat__value">MIT</span>
-            <span class="stat__label">licença</span>
+            <span class="stat__label">license</span>
           </div>
           <div class="stat">
             <span class="stat__value">Ruby 3.1+</span>
@@ -96,66 +96,66 @@
       </div>
     </section>
 
-    <section id="sobre" class="section container">
+    <section id="about" class="section container">
       <div class="section__header reveal">
-        <p class="eyebrow">O problema</p>
-        <h2>Swagger como entrada quebra no rswag</h2>
+        <p class="eyebrow">The problem</p>
+        <h2>Swagger as input breaks rswag</h2>
       </div>
       <div class="problem-grid reveal">
         <article class="problem-card problem-card--bad">
-          <span class="problem-card__tag">Evitar</span>
+          <span class="problem-card__tag">Avoid</span>
           <h3>OpenAPI → spec</h3>
           <p>
-            Em projetos com <code>rswag:specs:swaggerize</code>, o contrato é
-            <strong>saída</strong> dos specs. Gerar testes a partir do Swagger
-            cria dependência circular para endpoints novos.
+            In projects using <code>rswag:specs:swaggerize</code>, the contract is the
+            <strong>output</strong> of specs. Generating tests from Swagger
+            creates a circular dependency for new endpoints.
           </p>
         </article>
         <article class="problem-card problem-card--good">
-          <span class="problem-card__tag">Esta gem</span>
-          <h3>Rotas → spec → swagger</h3>
+          <span class="problem-card__tag">This gem</span>
+          <h3>Routes → spec → swagger</h3>
           <p>
-            A fonte de verdade são <code>config/routes.rb</code> e os controllers.
-            A gem gera o boilerplate rswag; você refina mocks e schemas; o swagger
-            nasce dos testes.
+            The source of truth is <code>config/routes.rb</code> and your controllers.
+            The gem generates rswag boilerplate; you refine mocks and schemas; swagger
+            comes from the tests.
           </p>
         </article>
       </div>
     </section>
 
-    <section id="fluxo" class="section section--alt">
+    <section id="flow" class="section section--alt">
       <div class="container">
         <div class="section__header reveal">
-          <p class="eyebrow">Como funciona</p>
-          <h2>Pipeline em 4 passos</h2>
+          <p class="eyebrow">How it works</p>
+          <h2>A 4-step pipeline</h2>
         </div>
         <ol class="flow reveal">
           <li class="flow__step">
             <span class="flow__num">01</span>
             <div>
-              <h3>Coleta rotas</h3>
-              <p>Filtra endpoints do namespace (ex.: <code>/api/v1</code>) via <code>Rails.application.routes</code>.</p>
+              <h3>Collect routes</h3>
+              <p>Filters endpoints under a namespace (e.g. <code>/api/v1</code>) via <code>Rails.application.routes</code>.</p>
             </div>
           </li>
           <li class="flow__step">
             <span class="flow__num">02</span>
             <div>
-              <h3>Inspeciona controllers</h3>
-              <p>Infere services, tenant header, parâmetros e template ERB por padrão de código.</p>
+              <h3>Inspect controllers</h3>
+              <p>Infers services, tenant header, parameters, and ERB template from code patterns.</p>
             </div>
           </li>
           <li class="flow__step">
             <span class="flow__num">03</span>
             <div>
-              <h3>Merge com YAML</h3>
-              <p>Overrides opcionais em <code>config/routes_api_spec_generator.yml</code> por <code>controller#action</code>.</p>
+              <h3>Merge YAML</h3>
+              <p>Optional overrides in <code>config/routes_api_spec_generator.yml</code> keyed by <code>controller#action</code>.</p>
             </div>
           </li>
           <li class="flow__step">
             <span class="flow__num">04</span>
             <div>
-              <h3>Grava specs</h3>
-              <p>Materializa <code>spec/requests/**/_spec.rb</code> prontos para <code>rspec</code> e <code>swaggerize</code>.</p>
+              <h3>Write specs</h3>
+              <p>Materializes <code>spec/requests/**/_spec.rb</code> ready for <code>rspec</code> and <code>swaggerize</code>.</p>
             </div>
           </li>
         </ol>
@@ -164,45 +164,45 @@
 
     <section id="features" class="section container">
       <div class="section__header reveal">
-        <p class="eyebrow">O que entrega</p>
-        <h2>Menos boilerplate, mais cobertura</h2>
+        <p class="eyebrow">What you get</p>
+        <h2>Less boilerplate, more coverage</h2>
       </div>
       <div class="cards">
         <article class="card reveal">
           <div class="card__icon" aria-hidden="true">🛤️</div>
           <h3>Route collector</h3>
-          <p class="card__desc">Descobre GETs (e outros verbos configuráveis) sob um prefixo de API.</p>
+          <p class="card__desc">Discovers GETs (and other configurable verbs) under an API prefix.</p>
         </article>
         <article class="card card--featured reveal reveal--delay">
           <div class="card__badge">Core</div>
           <div class="card__icon" aria-hidden="true">🔍</div>
           <h3>Controller inspector</h3>
-          <p class="card__desc">Regex sobre o código-fonte para services, tenant e templates por domínio.</p>
+          <p class="card__desc">Regex over source code for services, tenant, and domain templates.</p>
           <ul class="card__list">
             <li>Insights, channels, big numbers</li>
             <li>Headers <code>Tenant-ID</code> / <code>X-Tenant-ID</code></li>
-            <li>Parâmetros <code>start_date</code>, <code>end_date</code></li>
+            <li>Params <code>start_date</code>, <code>end_date</code></li>
           </ul>
         </article>
         <article class="card reveal reveal--delay-2">
           <div class="card__icon" aria-hidden="true">📄</div>
-          <h3>Templates ERB</h3>
-          <p class="card__desc">Specs rswag com <code>path</code>, <code>parameter</code>, <code>response</code> e mocks base.</p>
+          <h3>ERB templates</h3>
+          <p class="card__desc">rswag specs with <code>path</code>, <code>parameter</code>, <code>response</code>, and base mocks.</p>
         </article>
         <article class="card reveal">
           <div class="card__icon" aria-hidden="true">⚙️</div>
           <h3>CLI + Rake</h3>
-          <p class="card__desc"><code>routes-api-spec-generator</code> ou <code>rake routes_api_spec:generate</code> no app Rails.</p>
+          <p class="card__desc"><code>routes-api-spec-generator</code> or <code>rake routes_api_spec:generate</code> in your Rails app.</p>
         </article>
         <article class="card reveal reveal--delay">
           <div class="card__icon" aria-hidden="true">📝</div>
           <h3>YAML overrides</h3>
-          <p class="card__desc">Ajuste tag, summary, service_class e template sem alterar a gem.</p>
+          <p class="card__desc">Tune tag, summary, service_class, and template without changing the gem.</p>
         </article>
         <article class="card reveal reveal--delay-2">
           <div class="card__icon" aria-hidden="true">🚫</div>
           <h3>Safe by default</h3>
-          <p class="card__desc">Não sobrescreve specs existentes — use <code>FORCE=true</code> quando quiser regenerar.</p>
+          <p class="card__desc">Does not overwrite existing specs — use <code>FORCE=true</code> to regenerate.</p>
         </article>
       </div>
     </section>
@@ -210,51 +210,51 @@
     <section class="section section--alt">
       <div class="container">
         <div class="section__header reveal">
-          <p class="eyebrow">Quando usar</p>
-          <h2>Momentos certos</h2>
+          <p class="eyebrow">When to use</p>
+          <h2>The right moments</h2>
         </div>
         <ul class="checklist reveal">
           <li>
             <span class="checklist__icon" aria-hidden="true">✓</span>
             <div>
-              <strong>Novo endpoint na API Rails</strong>
-              <span>Gere o request spec base antes de escrever mocks e schemas detalhados.</span>
+              <strong>New endpoint on a Rails API</strong>
+              <span>Generate the base request spec before writing detailed mocks and schemas.</span>
             </div>
           </li>
           <li>
             <span class="checklist__icon" aria-hidden="true">✓</span>
             <div>
-              <strong>Projeto com rswag (spec → swagger)</strong>
-              <span>Mantém o ciclo correto sem tentar ler o contrato OpenAPI como entrada.</span>
+              <strong>Projects with rswag (spec → swagger)</strong>
+              <span>Keeps the correct cycle without reading the OpenAPI contract as input.</span>
             </div>
           </li>
           <li>
             <span class="checklist__icon" aria-hidden="true">✓</span>
             <div>
-              <strong>Greenfield ou gap de cobertura</strong>
-              <span>Bootstrap de vários endpoints de uma vez a partir das rotas reais.</span>
+              <strong>Greenfield or coverage gaps</strong>
+              <span>Bootstrap several endpoints at once from real routes.</span>
             </div>
           </li>
           <li>
             <span class="checklist__icon" aria-hidden="true">✓</span>
             <div>
-              <strong>Padronizar request specs</strong>
-              <span>Mesma estrutura de path, headers, query params e respostas 400.</span>
+              <strong>Standardize request specs</strong>
+              <span>Same structure for path, headers, query params, and 400 responses.</span>
             </div>
           </li>
         </ul>
       </div>
     </section>
 
-    <section id="instalar" class="section container">
+    <section id="install" class="section container">
       <div class="install reveal">
         <div class="install__text">
           <p class="eyebrow">Ruby gem</p>
-          <h2>Instale e gere seus specs</h2>
-          <p>Funciona em qualquer app Rails com rswag. Templates customizáveis via YAML.</p>
+          <h2>Install and generate your specs</h2>
+          <p>Works with any Rails app using rswag. Templates customizable via YAML.</p>
         </div>
         <div class="install__panel">
-          <div class="tabs" role="tablist" aria-label="Formas de instalação">
+          <div class="tabs" role="tablist" aria-label="Installation methods">
             <button class="tab tab--active" role="tab" aria-selected="true" data-tab="gem">Gem</button>
             <button class="tab" role="tab" aria-selected="false" data-tab="rake">Rake</button>
             <button class="tab" role="tab" aria-selected="false" data-tab="cli">CLI</button>
@@ -265,14 +265,14 @@
               <div class="command-block">
                 <div class="command-block__header">
                   <span>Gemfile</span>
-                  <button class="copy-btn" data-copy="gem 'routes_api_spec_generator'" aria-label="Copiar">Copiar</button>
+                  <button class="copy-btn" data-copy="gem 'routes_api_spec_generator'" aria-label="Copy">Copy</button>
                 </div>
                 <code>gem 'routes_api_spec_generator'</code>
               </div>
               <div class="command-block">
                 <div class="command-block__header">
-                  <span>Instalar</span>
-                  <button class="copy-btn" data-copy="gem install routes_api_spec_generator" aria-label="Copiar">Copiar</button>
+                  <span>Install</span>
+                  <button class="copy-btn" data-copy="gem install routes_api_spec_generator" aria-label="Copy">Copy</button>
                 </div>
                 <code>gem install routes_api_spec_generator</code>
               </div>
@@ -280,15 +280,15 @@
             <div class="tab-panel" data-panel="rake" hidden>
               <div class="command-block">
                 <div class="command-block__header">
-                  <span>Gerar specs</span>
-                  <button class="copy-btn" data-copy="bundle exec rake routes_api_spec:generate" aria-label="Copiar">Copiar</button>
+                  <span>Generate specs</span>
+                  <button class="copy-btn" data-copy="bundle exec rake routes_api_spec:generate" aria-label="Copy">Copy</button>
                 </div>
                 <code>bundle exec rake routes_api_spec:generate</code>
               </div>
               <div class="command-block">
                 <div class="command-block__header">
-                  <span>Forçar overwrite</span>
-                  <button class="copy-btn" data-copy="FORCE=true bundle exec rake routes_api_spec:generate" aria-label="Copiar">Copiar</button>
+                  <span>Force overwrite</span>
+                  <button class="copy-btn" data-copy="FORCE=true bundle exec rake routes_api_spec:generate" aria-label="Copy">Copy</button>
                 </div>
                 <code>FORCE=true bundle exec rake routes_api_spec:generate</code>
               </div>
@@ -296,15 +296,15 @@
             <div class="tab-panel" data-panel="cli" hidden>
               <div class="command-block">
                 <div class="command-block__header">
-                  <span>Gerar</span>
-                  <button class="copy-btn" data-copy="routes-api-spec-generator generate" aria-label="Copiar">Copiar</button>
+                  <span>Generate</span>
+                  <button class="copy-btn" data-copy="routes-api-spec-generator generate" aria-label="Copy">Copy</button>
                 </div>
                 <code>routes-api-spec-generator generate</code>
               </div>
               <div class="command-block">
                 <div class="command-block__header">
-                  <span>Com opções</span>
-                  <button class="copy-btn" data-copy="routes-api-spec-generator generate --force --namespace /api/v1" aria-label="Copiar">Copiar</button>
+                  <span>With options</span>
+                  <button class="copy-btn" data-copy="routes-api-spec-generator generate --force --namespace /api/v1" aria-label="Copy">Copy</button>
                 </div>
                 <code>routes-api-spec-generator generate --force --namespace /api/v1</code>
               </div>
@@ -313,7 +313,7 @@
               <div class="command-block command-block--tall">
                 <div class="command-block__header">
                   <span>config/routes_api_spec_generator.yml</span>
-                  <button class="copy-btn" data-copy="endpoints:\n  api/v1/insights#email_metrics:\n    template: insights\n    tag: Insights\n    tenant_header: X-Tenant-ID\n    service_class: Insights::EmailService\n    channel: email" aria-label="Copiar">Copiar</button>
+                  <button class="copy-btn" data-copy="endpoints:\n  api/v1/insights#email_metrics:\n    template: insights\n    tag: Insights\n    tenant_header: X-Tenant-ID\n    service_class: Insights::EmailService\n    channel: email" aria-label="Copy">Copy</button>
                 </div>
                 <code>endpoints:
   api/v1/insights#email_metrics:
@@ -332,8 +332,8 @@
     <section class="cta-section">
       <div class="container cta reveal">
         <p class="cta__emoji" aria-hidden="true">💎</p>
-        <h2>Pronto para testar?</h2>
-        <p>Clone, rode no seu app Rails e gere o primeiro lote de request specs em segundos.</p>
+        <h2>Ready to try it?</h2>
+        <p>Clone it, run it in your Rails app, and generate your first batch of request specs in seconds.</p>
         <div class="cta__links">
           <a href="https://rubygems.org/gems/routes_api_spec_generator" class="btn btn--primary" target="_blank" rel="noopener">RubyGems</a>
           <a href="https://github.com/saulofilho/routes-api-spec-generator" class="btn btn--ghost" target="_blank" rel="noopener">GitHub</a>
@@ -345,7 +345,7 @@
   <footer class="footer">
     <div class="container footer__inner">
       <p>routes_api_spec_generator · MIT License</p>
-      <p>Feito por <a href="https://github.com/saulofilho" target="_blank" rel="noopener">saulofilho</a></p>
+      <p>Made by <a href="https://github.com/saulofilho" target="_blank" rel="noopener">saulofilho</a></p>
     </div>
   </footer>
 

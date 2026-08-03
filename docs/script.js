@@ -74,15 +74,15 @@
       try {
         await navigator.clipboard.writeText(text);
         const original = btn.textContent;
-        btn.textContent = "Copiado!";
+        btn.textContent = "Copied!";
         btn.classList.add("copied");
         setTimeout(() => {
           btn.textContent = original;
           btn.classList.remove("copied");
         }, 2000);
       } catch {
-        btn.textContent = "Erro";
-        setTimeout(() => { btn.textContent = "Copiar"; }, 2000);
+        btn.textContent = "Error";
+        setTimeout(() => { btn.textContent = "Copy"; }, 2000);
       }
     });
   });
